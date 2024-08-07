@@ -16,7 +16,7 @@ birdnet-go:
 
 mics:
   - name:
-    udevRule:
+    udevRules:
 
 
 rtsp-server:

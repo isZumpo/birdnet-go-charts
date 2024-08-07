@@ -1,0 +1,22 @@
+{{- range $index, $microphone := .Values.mics }}
+apiVersion: akri.sh/v0
+kind: Configuration
+metadata:
+  name: akri-{{ $microphone.name }}
+  labels:
+    app: {{ template "birdnet-go.name" . }}
+    chart: {{ template "birdnet-go.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  capacity: 1
+  discoveryHandler:
+    discoveryDetails: |
+      {{- if $microphone.udevRules }}
+      udevRules:
+        {{- range $index, $rule := $microphone.udevRules }}
+        - {{ $rule }}
+        {{- end }}
+      {{- end }}
+    name: udev
+{{- end }}
