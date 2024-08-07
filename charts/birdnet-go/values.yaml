@@ -18,6 +18,10 @@ mics:
   - name:
     udevRule:
 
+
+rtsp-server:
+  image: bluenviron/mediamtx:1.8.5
+
 persistentVolumeClaim:
   # -- set to true to use pvc
   enabled: false
