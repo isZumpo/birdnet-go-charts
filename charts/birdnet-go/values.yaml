@@ -18,6 +18,10 @@ mics:
   - name:
     udevRules:
 
+rtsp-client:
+  image: lscr.io/linuxserver/ffmpeg:6.1.1
+  tolerations:
+    
 
 rtsp-server:
   image: bluenviron/mediamtx:1.8.5

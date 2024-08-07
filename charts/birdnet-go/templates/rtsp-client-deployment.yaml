@@ -1,0 +1,64 @@
+{{- range $index, $microphone := .Values.mics }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "birdnet-go.fullname" . }}-rtsp-client-{{ $microphone.name }}
+  labels:
+    app: {{ template "birdnet-go.name" . }}
+    chart: {{ template "birdnet-go.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate # Needed for akri since bound to single USB device
+  selector:
+    matchLabels:
+      app: {{ template "birdnet-go.name" . }}
+      release: {{ .Release.Name }}
+      microphone: {{ $microphone.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "birdnet-go.name" . }}
+        release: {{ .Release.Name }}
+        microphone: {{ $microphone.name }}
+    spec:
+      containers:
+      - image: lscr.io/linuxserver/ffmpeg:6.1.1
+        name: ffmpeg
+        args:
+        - -nostdin
+        - -f
+        - alsa
+        - -acodec
+        - pcm_s16le
+        - -ac
+        - "2"
+        - -ar
+        - "48000"
+        - -i
+        - plughw:0
+        - -filter:a
+        - "highpass=f=500,dynaudnorm"
+        - -f
+        - "rtsp"
+        - -acodec
+        - pcm_s16be
+        - rtsp://birdnet-rtsps-server.birdnet.svc.cluster.local:8554/mystream
+        - -rtsp_transport
+        - tcp
+        env:
+        - name: ALSA_CARD
+          value: '1'
+        resources:
+          limits:
+            akri-{{ $microphone.name }}: "1"
+          requests:
+            akri-{{ $microphone.name }}: "1"
+      tolerations:
+        {{- range $key, $value := .Values.rtsp-client.tolerations }}
+        - {{ toYaml $value | indent 8 }}
+        {{- end }}
+{{- end }}
+
