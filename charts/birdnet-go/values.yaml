@@ -8,23 +8,23 @@ replicaCount: 1
 # -- If true, install Akri
 installAkri: true
 
-
-
-birdnet-go:
+birdnet:
   image: ghcr.io/tphakala/birdnet-go:latest
-  config:
+  config: {}
 
-mics:
-  - name:
-    udevRules:
+microphones:
+  - name: as
+    udevRules: 
+      - asd
 
-rtsp-client:
-  image: lscr.io/linuxserver/ffmpeg:6.1.1
-  tolerations:
-    
+rtsp:
+  client:
+    image: lscr.io/linuxserver/ffmpeg:6.1.1
+    tolerations: []
+  server:
+    image: bluenviron/mediamtx:1.8.5
 
-rtsp-server:
-  image: bluenviron/mediamtx:1.8.5
+timezone: Europe/Stockholm
 
 persistentVolumeClaim:
   # -- set to true to use pvc

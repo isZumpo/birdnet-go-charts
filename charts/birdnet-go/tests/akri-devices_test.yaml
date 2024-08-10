@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: test creation of akri devices
+templates:
+  - akri-devices.yaml
+set:
+  fullnameOverride: wow
+tests:
+  - it: single microphone should produce exactly one akri device
+    set:
+      microphones:
+        - name: microphone_1
+          udevRules:
+            - rule_1
+    asserts:
+      - isKind:
+          of: Configuration
+      - equal:
+          path: spec.discoveryHandler.discoveryDetails.udevRules[0]
+          value: rule_1
+  - it: multiple microphones should produce the same number of akri devices
+    set:
+      microphones:
+        - name: microphone_0
+          udevRules:
+            - rule_0
+        - name: microphone_1
+          udevRules:
+            - rule_1
+        - name: microphone_2
+          udevRules:
+            - rule_2
+    asserts:
+      - isKind:
+          of: Configuration
+        documentIndex: -1
+      - equal:
+          path: spec.discoveryHandler.discoveryDetails.udevRules[0]
+          value: rule_0
+        documentIndex: 0
+      - equal:
+          path: spec.discoveryHandler.discoveryDetails.udevRules[0]
+          value: rule_1
+        documentIndex: 1
+      - equal:
+          path: spec.discoveryHandler.discoveryDetails.udevRules[0]
+          value: rule_2
+        documentIndex: 2

@@ -20,7 +20,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-      - image: {{ .Values.rtsp-server.image }}
+      - image: {{ .Values.rtsp.server.image }}
         name: mediamtx
         env:
         - name: MTX_PROTOCOLS

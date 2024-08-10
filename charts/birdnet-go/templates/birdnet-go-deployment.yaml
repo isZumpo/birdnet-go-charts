@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "birdnet-go.fullname" . }}
+  labels:
+    app: {{ template "birdnet-go.name" . }}
+    chart: {{ template "birdnet-go.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "birdnet-go.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "birdnet-go.name" . }}
+        release: {{ .Release.Name }}
+      containers:
+      - image: {{ .Values.birdnet.image }}
+        name: birdnet-go
+        volumeMounts:
+        - mountPath: /config/config.yaml
+          name: config
+          subPath: config.yaml
+        - mountPath: /data
+          name: all
+          subPath: data
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        env:
+        - name: TZ
+          value: {{ .Values.timezoneZ }}
+        resources:
+        args:
+        - realtime
+        {{- range $index, $microphone := .Values.microphones }}
+        - --rtsp
+        - rtsp://{{ template "birdnet-go.fullname" . }}-rtsp-server.{{ $.Release.Namespace }}.svc.cluster.local:8554/{$microphone.name}
+        {{- end }}
+        - --rtsptransport
+        - tcp
+        livenessProbe:
+          tcpSocket:
+            port: http
+        readinessProbe:
+          tcpSocket:
+            port: http
+      volumes:
+      - name: all
+        persistentVolumeClaim:
+          claimName: birdnet-all
+      - name: config
+        configMap:
+          name: birdnet-config
