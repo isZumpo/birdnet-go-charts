@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "birdnet-go.fullname" . }}-config
+  name: {{ template "birdnet-go.fullname" . }}-birdnet
   labels:
     app: {{ template "birdnet-go.name" . }}
     chart: {{ template "birdnet-go.chart" . }}

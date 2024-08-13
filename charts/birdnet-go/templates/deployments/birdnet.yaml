@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "birdnet-go.fullname" . }}
+  name: {{ template "birdnet-go.fullname" . }}-birdnet
   labels:
     app: {{ template "birdnet-go.name" . }}
     chart: {{ template "birdnet-go.chart" . }}
