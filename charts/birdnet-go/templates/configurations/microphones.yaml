@@ -2,7 +2,7 @@
 apiVersion: akri.sh/v0
 kind: Configuration
 metadata:
-  name: akri-{{ $microphone.name }}
+  name: {{ template "birdnet-go.fullname" . }}-mic-{{ $microphone.name }}
   labels:
     app: {{ template "birdnet-go.name" . }}
     chart: {{ template "birdnet-go.chart" . }}
