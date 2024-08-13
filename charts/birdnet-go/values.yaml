@@ -5,8 +5,9 @@
 # -- The number of replicas
 replicaCount: 1
 
-# -- If true, install Akri
-installAkri: true
+akri:
+  # -- If true, install Akri
+  install: true
 
 birdnet:
   image: ghcr.io/tphakala/birdnet-go:latest
