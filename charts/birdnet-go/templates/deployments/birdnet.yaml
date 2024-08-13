@@ -18,6 +18,7 @@ spec:
       labels:
         app: {{ template "birdnet-go.name" . }}
         release: {{ .Release.Name }}
+    spec:
       containers:
       - image: {{ .Values.birdnet.image }}
         name: birdnet-go
