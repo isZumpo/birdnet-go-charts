@@ -1,5 +1,5 @@
-{{- if .Values.ingress.enabled -}}
-{{- $ingressPath := .Values.ingress.path -}}
+{{- if .Values.birdnet.ingress.enabled -}}
+{{- $ingressPath := .Values.birdnet.ingress.path -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,20 +9,20 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  {{- with .Values.ingress.annotations }}
+  {{- with .Values.birdnet.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+{{- if .Values.birdnet.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.birdnet.ingress.ingressClassName }}
 {{- end }}
-{{- if .Values.ingress.tls }}
+{{- if .Values.birdnet.ingress.tls }}
   tls:
-{{ toYaml .Values.ingress.tls | indent 4 }}
+{{ toYaml .Values.birdnet.ingress.tls | indent 4 }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
+  {{- range .Values.birdnet.ingress.hosts }}
     - host: {{ . | quote }}
       http:
         paths:
