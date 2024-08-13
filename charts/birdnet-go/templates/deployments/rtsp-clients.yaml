@@ -3,26 +3,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "birdnet-go.fullname" . }}-rtsp-client-{{ $microphone.name }}
-  # labels:
-  #   app: {{ template "birdnet-go.name" . }}
-  #   chart: {{ template "birdnet-go.chart" . }}
-  #   release: {{ $.Release.Name }}
-  #   heritage: {{ $.Release.Service }}
+  labels:
+    app: {{ template "birdnet-go.name" . }}
+    chart: {{ template "birdnet-go.chart" . }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
 spec:
   replicas: {{ $.Values.replicaCount }}
   strategy:
     type: Recreate # Needed for akri since bound to single USB device
   selector:
-    # matchLabels:
-    #   app: {{ template "birdnet-go.name" . }}
-    #   release: {{ $.Release.Name }}
-    #   microphone: {{ $microphone.name }}
+    matchLabels:
+      app: {{ template "birdnet-go.name" . }}
+      release: {{ $.Release.Name }}
+      microphone: {{ $microphone.name }}
   template:
     metadata:
       labels:
-        # app: {{ template "birdnet-go.name" . }}
-        # release: {{ $.Release.Name }}
-        # microphone: {{ $microphone.name }}
+        app: {{ template "birdnet-go.name" . }}
+        release: {{ $.Release.Name }}
+        microphone: {{ $microphone.name }}
     spec:
       containers:
       - image: lscr.io/linuxserver/ffmpeg:6.1.1
@@ -45,7 +45,7 @@ spec:
         - "rtsp"
         - -acodec
         - pcm_s16be
-        #- rtsp://{{ template "birdnet-go.fullname" . }}-rtsp-server.{{ $.Release.Namespace }}.svc.cluster.local:8554/{$microphone.name}
+        - rtsp://{{ template "birdnet-go.fullname" . }}-rtsp-server.{{ $.Release.Namespace }}.svc.cluster.local:8554/{$microphone.name}
         - -rtsp_transport
         - tcp
         env:
