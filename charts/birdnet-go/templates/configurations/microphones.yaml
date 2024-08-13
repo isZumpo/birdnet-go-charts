@@ -11,7 +11,7 @@ metadata:
 spec:
   capacity: 1
   discoveryHandler:
-    discoveryDetails:
+    discoveryDetails: |
       {{- if $microphone.udevRules }}
       udevRules:
         {{- range $microphone.udevRules }}
