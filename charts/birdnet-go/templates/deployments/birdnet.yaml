@@ -61,4 +61,4 @@ spec:
         {{- end }}
       - name: config
         configMap:
-          name: birdnet-config
+          name: {{ template "birdnet-go.fullname" . }}-birdnet
