@@ -2,8 +2,6 @@
 suite: test creation of akri devices
 templates:
   - configurations/microphones.yaml
-set:
-  fullnameOverride: wow
 tests:
   - it: single microphone should produce exactly one akri device
     set:
