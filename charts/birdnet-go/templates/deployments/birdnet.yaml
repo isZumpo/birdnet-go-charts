@@ -34,7 +34,7 @@ spec:
           protocol: TCP
         env:
         - name: TZ
-          value: {{ .Values.timezoneZ }}
+          value: {{ .Values.timezone }}
         resources:
         args:
         - realtime
