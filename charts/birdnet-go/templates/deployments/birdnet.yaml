@@ -40,7 +40,7 @@ spec:
         - realtime
         {{- range $index, $microphone := .Values.microphones }}
         - --rtsp
-        - rtsp://{{ template "birdnet-go.fullname" . }}-rtsp-server.{{ $.Release.Namespace }}.svc.cluster.local:8554/{$microphone.name}
+        - rtsp://{{ template "birdnet-go.fullname" $ }}-rtsp-server.{{ $.Release.Namespace }}.svc.cluster.local:8554/{$microphone.name}
         {{- end }}
         - --rtsptransport
         - tcp
