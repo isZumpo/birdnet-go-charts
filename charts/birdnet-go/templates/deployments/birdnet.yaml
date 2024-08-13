@@ -52,8 +52,14 @@ spec:
             port: http
       volumes:
       - name: all
+        {{- if .Values.persistentVolumeClaim.enabled }}
         persistentVolumeClaim:
-          claimName: birdnet-all
+          claimName: {{ if .Values.persistentVolumeClaim.existingClaim }}{{ .Values.persistentVolumeClaim.existingClaim }}{{- else }}{{ template "birdnet-go.fullname" . }}{{- end }}
+        {{- else if .Values.customVolumes.enabled }}
+{{- toYaml .Values.customVolumes.config | nindent 8 }}
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
       - name: config
         configMap:
           name: birdnet-config
