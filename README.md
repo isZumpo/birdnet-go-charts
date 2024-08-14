@@ -1,3 +1,5 @@
+# WORK IN PROGRESS
+
 # BirdNET-Go Helm Chart
 
 This is a [Helm](https://helm.sh/) chart for deploying [BirdNET-Go](https://github.com/tphakala/birdnet-go)
