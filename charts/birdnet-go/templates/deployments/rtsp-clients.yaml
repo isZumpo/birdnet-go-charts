@@ -38,7 +38,7 @@ spec:
         - -ar
         - "48000"
         - -i
-        - plughw:0
+        - plughw:1
         - -filter:a
         - "highpass=f=500,dynaudnorm"
         - -f
