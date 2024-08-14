@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  birdnet-go:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-08-14T13:08:48.784511132Z"
+    dependencies:
+    - condition: akri.install
+      name: akri
+      repository: https://project-akri.github.io/akri/
+      version: 0.12.20
+    description: A Helm chart for birdnet-go
+    digest: 133659c86d5c878a398a246fe60c500326b7075d3a29e9915eb16c63bdebb69e
+    name: birdnet-go
+    type: application
+    urls:
+    - https://github.com/isZumpo/birdnet-go-charts/releases/download/birdnet-go-0.1.0/birdnet-go-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-08-14T13:08:48.784520098Z"
