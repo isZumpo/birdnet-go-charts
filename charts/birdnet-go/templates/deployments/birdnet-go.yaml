@@ -32,8 +32,7 @@ spec:
           name: config
           subPath: config.yaml
         - mountPath: /data
-          name: all
-          subPath: data
+          name: data
         ports:
         - name: http
           containerPort: 8080
@@ -57,7 +56,7 @@ spec:
           tcpSocket:
             port: http
       volumes:
-      - name: all
+      - name: data
         {{- if .Values.birdnet.persistentVolumeClaim.enabled }}
         persistentVolumeClaim:
           claimName: {{ if .Values.birdnet.persistentVolumeClaim.existingClaim }}{{ .Values.birdnet.persistentVolumeClaim.existingClaim }}{{- else }}{{ template "birdnet-go.fullname" . }}{{- end }}
