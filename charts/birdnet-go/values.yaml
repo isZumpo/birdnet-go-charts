@@ -50,9 +50,9 @@ birdnet:
     #      - chart-example.local
 
 microphones:
-  - name: as
+  - name: blueyeti
     udevRules: 
-      - asd
+      - ATTRS{idProduct}=="9e84", ATTRS{idVendor}=="b58e"
 
 rtsp:
   client:
