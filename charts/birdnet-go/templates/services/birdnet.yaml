@@ -1,16 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "birdnet-go.fullname" . }}-birdnet
+  name: {{ template "birdnet-go.fullname" . }}-birdnet-go
   labels:
-    app: {{ template "birdnet-go.name" . }}
-    chart: {{ template "birdnet-go.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+    helm.sh/chart: {{ template "birdnet-go.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: birdnet-go
 spec:
   type: ClusterIP
   selector:
-    app: {{ template "birdnet-go.name" . }}-birdnet
+    app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: birdnet-go
   ports:
     - name: http
       protocol: TCP

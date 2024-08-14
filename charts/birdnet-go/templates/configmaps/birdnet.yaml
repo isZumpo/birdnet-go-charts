@@ -3,10 +3,11 @@ kind: ConfigMap
 metadata:
   name: {{ template "birdnet-go.fullname" . }}-birdnet
   labels:
-    app: {{ template "birdnet-go.name" . }}
-    chart: {{ template "birdnet-go.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+    helm.sh/chart: {{ template "birdnet-go.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: birdnet-go
 data:
   config.yaml: |
   {{- range .Values.birdnet.config }}

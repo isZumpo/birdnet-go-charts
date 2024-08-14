@@ -4,10 +4,11 @@ kind: Configuration
 metadata:
   name: {{ template "birdnet-go.fullname" $ }}-mic-{{ $microphone.name }}
   labels:
-    app: {{ template "birdnet-go.name" $ }}
-    chart: {{ template "birdnet-go.chart" $ }}
-    release: {{ $.Release.Name }}
-    heritage: {{ $.Release.Service }}
+    app.kubernetes.io/name: {{ template "birdnet-go.name" $ }}
+    helm.sh/chart: {{ template "birdnet-go.chart" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/component: rtsp-client
 spec:
   capacity: 1
   discoveryHandler:

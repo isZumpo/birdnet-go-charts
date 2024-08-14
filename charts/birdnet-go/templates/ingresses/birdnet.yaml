@@ -5,10 +5,11 @@ kind: Ingress
 metadata:
   name: {{ template "birdnet-go.fullname" . }}-birdnet
   labels:
-    app: {{ template "birdnet-go.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+    helm.sh/chart: {{ template "birdnet-go.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: birdnet-go
   {{- with .Values.birdnet.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -30,7 +31,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ template "birdnet-go.name" . }}
+                name: {{ template "birdnet-go.name" . }}-birdnet-go
                 port: 
                   name: http
   {{- end }}

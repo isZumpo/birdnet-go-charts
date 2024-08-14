@@ -1,23 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "birdnet-go.fullname" . }}-birdnet
+  name: {{ template "birdnet-go.fullname" . }}-birdnet-go
   labels:
-    app: {{ template "birdnet-go.name" . }}
-    chart: {{ template "birdnet-go.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+    helm.sh/chart: {{ template "birdnet-go.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: birdnet-go
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "birdnet-go.name" . }}
-      release: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: birdnet-go
   template:
     metadata:
       labels:
-        app: {{ template "birdnet-go.name" . }}
-        release: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+        helm.sh/chart: {{ template "birdnet-go.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app.kubernetes.io/component: birdnet-go
     spec:
       containers:
       - image: {{ .Values.birdnet.image }}
@@ -61,4 +66,4 @@ spec:
         {{- end }}
       - name: config
         configMap:
-          name: {{ template "birdnet-go.fullname" . }}-birdnet
+          name: {{ template "birdnet-go.fullname" . }}-birdnet-go

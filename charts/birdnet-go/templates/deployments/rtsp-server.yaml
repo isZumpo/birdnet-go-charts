@@ -3,21 +3,26 @@ kind: Deployment
 metadata:
   name: {{ template "birdnet-go.fullname" . }}-rtsp-server
   labels:
-    app: {{ template "birdnet-go.name" . }}-rtsp-server
-    chart: {{ template "birdnet-go.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+    helm.sh/chart: {{ template "birdnet-go.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: rtsp-server
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "birdnet-go.name" . }}-rtsp-server
-      release: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: rtsp-server
   template:
     metadata:
       labels:
-        app: {{ template "birdnet-go.name" . }}-rtsp-server
-        release: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ template "birdnet-go.name" . }}
+        helm.sh/chart: {{ template "birdnet-go.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app.kubernetes.io/component: rtsp-server
     spec:
       containers:
       - image: {{ .Values.rtsp.server.image }}
