@@ -13,6 +13,7 @@ spec:
   discoveryHandler:
     discoveryDetails: |
       {{- if $microphone.udevRules }}
+      groupRecursive: true
       udevRules:
         {{- range $microphone.udevRules }}
         - {{ . }}
