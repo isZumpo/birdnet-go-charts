@@ -21,3 +21,10 @@ helm repo update
   ```bash
   helm install your-release iszumpo/birdnet-go
   ```
+
+
+### Configuration
+
+#### Udev rules for mics
+
+The chart uses [Akri](https://docs.akri.sh/) for attaching USB devices to the kubernetes pods. For more information about Akri and how to create the udev rules please read through my [article](https://medium.com/@hampusc/how-to-attach-usb-devices-to-kubernetes-pods-using-akri-19fb70d41f1e).
