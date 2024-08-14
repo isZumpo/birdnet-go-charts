@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "birdnet-go.fullname" . }}-rtsp-server
   labels:
-    app: {{ template "birdnet-go.name" . }}
+    app: {{ template "birdnet-go.name" . }}-rtsp-server
     chart: {{ template "birdnet-go.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -11,12 +11,12 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "birdnet-go.name" . }}
+      app: {{ template "birdnet-go.name" . }}-rtsp-server
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "birdnet-go.name" . }}
+        app: {{ template "birdnet-go.name" . }}-rtsp-server
         release: {{ .Release.Name }}
     spec:
       containers:

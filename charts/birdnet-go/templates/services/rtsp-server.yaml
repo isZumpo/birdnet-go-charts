@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ template "birdnet-go.fullname" . }}-rtsp-server
   labels:
-    app: {{ template "birdnet-go.name" . }}
+    app: {{ template "birdnet-go.name" . }}-rtsp-server
     chart: {{ template "birdnet-go.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
